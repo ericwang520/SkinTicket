@@ -1,0 +1,43 @@
+translate:
+  commandUsage: '&7[&c系統&7] &6若要獲取造型請輸入 &f/skinticket give <物品ID>'
+  noPermission: '&7[&c系統&7] &c你沒有權限。'
+  invalidSkin: '&7[&c系統&7] &c找不到名稱為 %item% 的皮膚，請檢察設置是否有填寫錯誤。'
+  successGiveItem: '&7[&c系統&7] &a成功獲取一個名稱為 %item% 的皮膚'
+  consoleLog: '&7[&cSkinTicket&7] &a玩家 %id% 成功拿取一個名稱為 %item% 的皮膚。'
+  successAddSkin: '&7[&c系統&7] &a成功套上名為 %item% 的皮膚。'
+  successRemoveSkin: '&7[&c系統&7] &a成功拿下名為 %item% 的皮膚。'
+  bagPackFull: '&7[&c系統&7] &c您的背包已滿。'
+  displaySkinNameLore: '&6此物品裝上造型: %item%'
+  alreadyHaveSkin: '&7[&c系統&7] &c上面已經有造型了。'
+  itemIsSkin: '&7[&c系統&7] &c您不能將造型裝上造型上。'
+  itemIsRemover: '&7[&c系統&7] &c您不能將造型裝在移除器上。'
+  waitcooldown: '&7[&c系統&7] &c請放慢您的動作。'
+  reload: '&7[&c系統&7] &c成功重載所有材質。'
+#自訂義造型
+CustomSkin:
+  a1:
+    displayName: '&7測試造型1'
+    displayLore:
+      - '&7此造型可以放在蘋果上'
+    displayMaterial: apple
+    customModelData: 1
+  a2:
+    displayName: '&7測試造型2'
+    displayLore:
+      - '&7此造型可以放在鑽石劍上'
+    displayMaterial: diamond_sword
+    customModelData: 1
+  a3:
+    displayName: '&7測試造型2'
+    displayLore:
+      - '&7此造型可以放在鑽石劍上'
+    displayMaterial: stone_sword
+    customModelData: 1
+
+#造型拔除器
+SkinRemover:
+  displayName: '&7皮膚拔除器'
+  displayLore:
+    - '&7此造型可以將造型拔除'
+  displayMaterial: apple
+  customModelData: 1

@@ -1,0 +1,10 @@
+name: SkinTicket
+version: '1.0-SNAPSHOT'
+main: me.yiyi1234.skinticket.SkinTicket
+api-version: 1.17
+
+permissions:
+  skinticket.op:
+    default: op
+commands:
+  SkinTicket:
