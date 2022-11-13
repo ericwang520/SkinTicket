@@ -15,24 +15,14 @@ translate:
   reload: '&7[&c系統&7] &c成功重載所有材質。'
 #自訂義造型
 CustomSkin:
-  a1:
-    displayName: '&7測試造型1'
-    displayLore:
-      - '&7此造型可以放在蘋果上'
-    displayMaterial: apple
-    customModelData: 1
-  a2:
-    displayName: '&7測試造型2'
-    displayLore:
-      - '&7此造型可以放在鑽石劍上'
-    displayMaterial: diamond_sword
-    customModelData: 1
-  a3:
-    displayName: '&7測試造型2'
-    displayLore:
-      - '&7此造型可以放在鑽石劍上'
-    displayMaterial: stone_sword
-    customModelData: 1
+#  範例:
+#    displayName: '&7範例造型'
+#    displayLore:
+#      - '&7此造型可以放在蘋果上'
+#    displayMaterial: apple
+#    customModelData: 1
+#    dye-color: 0 0 0
+
 
 #造型拔除器
 SkinRemover:

@@ -1,9 +1,7 @@
 package me.yiyi1234.skinticket.events;
 
 import me.yiyi1234.skinticket.SkinTicket;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,6 +9,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
@@ -71,8 +70,14 @@ public class InventoryClick implements Listener {
                 } else {
                     currentItemMeta.setCustomModelData(Integer.valueOf(currentItemNbtSplit[2]));
                 }
-
+                if (!currentItemNbtSplit[3].contains("null")) {
+                    LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) currentItemMeta;
+                    leatherArmorMeta.setColor(Color.fromRGB(Integer.valueOf(currentItemNbtSplit[3].split(",")[0]), Integer.valueOf(currentItemNbtSplit[3].split(",")[1]), Integer.valueOf(currentItemNbtSplit[3].split(",")[2])));
+                    currentItem.setItemMeta(leatherArmorMeta);
+                }
                 currentItem.setItemMeta(currentItemMeta);
+
+
 
                 event.setCancelled(true);
                 Player player = (Player) event.getWhoClicked();
@@ -123,6 +128,20 @@ public class InventoryClick implements Listener {
 
             ItemStack currentItem = event.getCurrentItem();
             ItemMeta currentItemMeta = currentItem.getItemMeta();
+
+
+            Color color = null;
+            if (event.getCursor().getType() == Material.LEATHER_HELMET || event.getCursor().getType() == Material.LEATHER_CHESTPLATE || event.getCursor().getType() == Material.LEATHER_LEGGINGS || event.getCursor().getType() == Material.LEATHER_BOOTS) {
+                LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) event.getCursor().getItemMeta();
+                if (leatherArmorMeta.getColor() != null) {
+
+                    LeatherArmorMeta currentItemLeatherArmorMeta = (LeatherArmorMeta) currentItemMeta;
+                    color = currentItemLeatherArmorMeta.getColor();
+                    currentItemLeatherArmorMeta.setColor(leatherArmorMeta.getColor());
+                    currentItem.setItemMeta(currentItemLeatherArmorMeta);
+
+                }
+            }
             List<String> lore = new ArrayList<>();
             lore.add(ChatColor.translateAlternateColorCodes('&', SkinTicket.getInstance().getConfig().getString("translate.displaySkinNameLore").replace("%item%", skinNbtSplit[1])));
 
@@ -134,9 +153,19 @@ public class InventoryClick implements Listener {
             currentItemMeta.setLore(lore);
 
             if (currentItemMeta.hasCustomModelData()) {
-                currentItemMeta.getPersistentDataContainer().set(namespacedKey, PersistentDataType.STRING, "useCustomSkin:" + skinNbtSplit[1] + ":" + currentItemMeta.getCustomModelData());
+                if (color == null) {
+                    currentItemMeta.getPersistentDataContainer().set(namespacedKey, PersistentDataType.STRING, "useCustomSkin:" + skinNbtSplit[1] + ":" + currentItemMeta.getCustomModelData() + ":" + null);
+
+                } else {
+                    currentItemMeta.getPersistentDataContainer().set(namespacedKey, PersistentDataType.STRING, "useCustomSkin:" + skinNbtSplit[1] + ":" + currentItemMeta.getCustomModelData() + ":" + color.getRed() + "," + color.getGreen() + "," + color.getBlue());
+
+                }
             } else {
-                currentItemMeta.getPersistentDataContainer().set(namespacedKey, PersistentDataType.STRING, "useCustomSkin:" + skinNbtSplit[1] + ":null");
+                if (color == null) {
+                    currentItemMeta.getPersistentDataContainer().set(namespacedKey, PersistentDataType.STRING, "useCustomSkin:" + skinNbtSplit[1] + ":null:null");
+                } else {
+                    currentItemMeta.getPersistentDataContainer().set(namespacedKey, PersistentDataType.STRING, "useCustomSkin:" + skinNbtSplit[1] + ":null:" + color.getRed() + "," + color.getGreen() + "," + color.getBlue());
+                }
             }
             currentItemMeta.setCustomModelData(event.getCursor().getItemMeta().getCustomModelData());
             currentItem.setItemMeta(currentItemMeta);

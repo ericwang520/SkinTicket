@@ -1,12 +1,10 @@
 package me.yiyi1234.skinticket.manager;
 
 import me.yiyi1234.skinticket.SkinTicket;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
@@ -28,6 +26,18 @@ public class ItemManager {
                 ItemMeta itemMeta = itemStack.getItemMeta();
                 itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', SkinTicket.getInstance().getConfig().getString("CustomSkin." + s + ".displayName")));
                 itemMeta.setCustomModelData(SkinTicket.getInstance().getConfig().getInt("CustomSkin." + s + ".customModelData"));
+
+                if (itemMaterial == Material.LEATHER_HELMET || itemMaterial == Material.LEATHER_CHESTPLATE || itemMaterial == Material.LEATHER_LEGGINGS || itemMaterial == Material.LEATHER_BOOTS) {
+                    if (SkinTicket.getInstance().getConfig().getString("CustomSkin." + s + ".dye-color") != null) {
+                        LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) itemMeta;
+                        String[] colors = SkinTicket.getInstance().getConfig().getString("CustomSkin." + s + ".dye-color").split(" ");
+                        leatherArmorMeta.setColor(Color.fromRGB(Integer.valueOf(colors[0]) ,Integer.valueOf(colors[1]),Integer.valueOf(colors[2])));
+
+                        itemStack.setItemMeta(leatherArmorMeta);
+                    }
+
+
+                }
 
                 List<String> lore = new ArrayList<>();
                 for (String l : SkinTicket.getInstance().getConfig().getStringList("CustomSkin." + s + ".displayLore")) {
